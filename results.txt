@@ -1,0 +1,41 @@
+nvcc -DUSE_SMALL_IMAGE kernel_gpu.cu main.cpp -o conv3D
+
+Input Size: (rows: 10, cols: 10, depth: 10)
+Elapsed time: 0.290816 ms
+
+----
+nvcc -DUSE_MED_IMAGE kernel_gpu.cu main.cpp -o conv3D
+
+Input Size: (rows: 50, cols: 50, depth: 50)
+Elapsed time: 0.310848 ms
+
+----
+nvcc -DUSE_LARGE_IMAGE kernel_gpu.cu main.cpp -o conv3D
+
+Input Size: (rows: 200, cols: 200, depth: 200)
+Elapsed time: 0.486784 ms
+
+-------------------------
+
+nvcc -DUSE_SMALL_IMAGE -DUSE_SHARED_MEM kernel_gpu.cu main.cpp -o conv3D
+
+memory copy time: 0.339840 ms
+Using shared memory for input image and constant memory for mask(kernel)
+Input Size: (rows: 10, cols: 10, depth: 10)
+Elapsed time: 0.104576 ms (~3 times faster)
+
+----
+nvcc -DUSE_MED_IMAGE -DUSE_SHARED_MEM kernel_gpu.cu main.cpp -o conv3D
+
+memory copy time: 0.316288 ms
+Using shared memory for input image and constant memory for mask(kernel)
+Input Size: (rows: 50, cols: 50, depth: 50)
+Elapsed time: 0.117248 ms (~3 times faster)
+
+----
+nvcc -DUSE_LARGE_IMAGE -DUSE_SHARED_MEM kernel_gpu.cu main.cpp -o conv3D
+
+memory copy time: 63.304352 ms
+Using shared memory for input image and constant memory for mask(kernel)
+Input Size: (rows: 200, cols: 200, depth: 200)
+Elapsed time: 0.125824 ms (~4 times faster)
