@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MATRIX_H
+#define MATRIX_H 
 
 struct CpuGpuMat {
 	void* cpuP;		// ram pointer
@@ -11,3 +12,5 @@ struct CpuGpuMat {
       return Rows * Cols * Depth;
   }
 };
+
+#endif

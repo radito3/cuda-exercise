@@ -37,14 +37,12 @@ int main() {
 	cudaError_t result1 = cudaMalloc(&Mat1.gpuP, Mat1.Size() * sizeof(float));
 	cudaError_t result2 = cudaMalloc(&Mat2.gpuP, Mat2.Size() * sizeof(float));
 	cudaError_t result3 = cudaMalloc(&Mat3.gpuP, Mat3.Size() * sizeof(float));
-	assert(result1 == cudaSuccess 
-        && result2 == cudaSuccess 
-        && result3 == cudaSuccess);
+	assert(result1 == cudaSuccess && result2 == cudaSuccess && result3 == cudaSuccess);
 
 	// set values to cpu memory
 	for (int i = 0; i < Mat1.Size(); i++) {
-    ((float*) Mat1.cpuP)[i] = (float)i;  
-  }
+		((float*) Mat1.cpuP)[i] = (float)i;  
+	}
 
 	//	Host => ram
 	//	Device => graphics memory	
@@ -56,7 +54,7 @@ int main() {
 	assert(result1 == cudaSuccess && result2 == cudaSuccess && result3 == cudaSuccess);
 
 
-  cudaEvent_t start, stop;
+  	cudaEvent_t start, stop;
 	cudaEventCreate(&start);
 	cudaEventCreate(&stop);
 
@@ -81,13 +79,13 @@ int main() {
 
 	cudaDeviceSynchronize();
 
-  #ifdef USE_SHARED_MEM
-  std::cout << "Using shared memory for input image and constant memory for mask(kernel)" << std::endl;
-  millis -= constMemCopyTime;
-  #endif
-  std::cout << "Input Size: (rows: " << IMAGE_ROWS << ", cols: "
-            << IMAGE_COLS << ", depth: " << IMAGE_DEPTH << ")" 
-            << std::endl << "Elapsed time: " << millis << " ms" << std::endl;
+	#ifdef USE_SHARED_MEM
+	std::cout << "Using shared memory for input image and constant memory for mask(kernel)" << std::endl;
+	millis -= constMemCopyTime;
+	#endif
+	std::cout << "Input Size: (rows: " << IMAGE_ROWS << ", cols: "
+				<< IMAGE_COLS << ", depth: " << IMAGE_DEPTH << ")" 
+				<< std::endl << "Elapsed time: " << millis << " ms" << std::endl;
 
 	// show result
 	for (size_t row = 0; row < Mat3.Rows; row++) {
